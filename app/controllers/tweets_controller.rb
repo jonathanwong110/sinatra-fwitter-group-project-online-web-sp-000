@@ -1,8 +1,10 @@
+require 'pry'
 class TweetsController < ApplicationController
 
   get '/tweets' do
     if is_logged_in?
       @tweets = Tweet.all
+      binding.pry
       erb :'/tweets/tweets'
     else
       redirect '/users/login'
@@ -33,7 +35,7 @@ class TweetsController < ApplicationController
   
   get '/tweets/:id' do
     if is_logged_in?
-      @tweet = Tweet.find_by(params[:id])
+      @tweet = Tweet.find(params[:id])
       erb :'/tweets/show_tweet'
     else
       redirect '/login'
